@@ -2,10 +2,10 @@ package db
 
 import (
 	"context"
-	"fmt"
 	"peter/entities"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func InsertUser(email, password string) error {
@@ -13,11 +13,26 @@ func InsertUser(email, password string) error {
 	coll := m.Database("db").Collection("user")
 
 	user := entities.User{
+		ID:       primitive.NewObjectID(),
 		Email:    email,
 		Password: password,
 	}
 
 	_, err := coll.InsertOne(context.Background(), user)
+
+	defer DisconnectFromDB(m)
+
+	return err
+}
+
+func ReferencePassword(email, website string, password entities.Password) error {
+	m := ConnectToDB()
+	coll := m.Database("db").Collection("user")
+
+	filter := bson.D{{Key: "email", Value: email}}
+	update := bson.D{{Key: "$set", Value: bson.D{{Key: "encryptedPasswords." + website, Value: password}}}}
+
+	_, err := coll.UpdateOne(context.TODO(), filter, update)
 
 	defer DisconnectFromDB(m)
 
@@ -40,7 +55,7 @@ func GetUsers(username string) ([]entities.User, error) {
 		return []entities.User{}, err
 	}
 
-	fmt.Printf("%+v", users)
+	defer DisconnectFromDB(m)
 
 	return users, nil
 }
