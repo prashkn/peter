@@ -11,11 +11,12 @@ type User struct {
 }
 
 type Password struct {
-	User     User
-	Website  string
-	Username string
-	Email    string
-	Hash     string
+	ID       primitive.ObjectID `bson:"_id"`
+	User     User               `bson:"user"`
+	Website  string             `bson:"website"`
+	Username string             `bson:"username"`
+	Email    string             `bson:"email"`
+	Hash     string             `bson:"hash"`
 }
 
 type Session struct {
