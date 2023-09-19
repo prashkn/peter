@@ -8,18 +8,18 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func InsertUser(username, password string) error {
+func InsertUser(email, password string) error {
 	m := ConnectToDB()
 	coll := m.Database("db").Collection("user")
 
 	user := entities.User{
-		Name:     username,
+		Email:    email,
 		Password: password,
 	}
 
 	_, err := coll.InsertOne(context.Background(), user)
 
-	defer DisconnectToDB(m)
+	defer DisconnectFromDB(m)
 
 	return err
 }
@@ -28,7 +28,7 @@ func GetUsers(username string) ([]entities.User, error) {
 	m := ConnectToDB()
 	coll := m.Database("db").Collection("user")
 
-	filter := bson.D{{Key: "name", Value: username}}
+	filter := bson.D{{Key: "email", Value: username}}
 
 	cursor, err := coll.Find(context.TODO(), filter)
 	if err != nil {

@@ -8,9 +8,9 @@ import (
 
 // signupCmd represents the signup command
 var signupCmd = &cobra.Command{
-	Use:   "signup username password",
+	Use:   "signup emailAddress password",
 	Args:  cobra.ExactArgs(2),
-	Short: "signup into the password manager",
+	Short: "signup for peter",
 	Run: func(cmd *cobra.Command, args []string) {
 		err := resolver.Signup(args[0], args[1])
 		if err != nil {

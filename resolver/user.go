@@ -19,16 +19,16 @@ func Login(username, password string) (entities.User, error) {
 	return found[0], err
 }
 
-func Signup(username, password string) error {
-	found, err := db.GetUsers(username)
+func Signup(email, password string) error {
+	found, err := db.GetUsers(email)
 	if err != nil {
 		return err
 	}
 
 	if len(found) > 0 {
-		return errors.New("found a user with the same username. Please use a different username")
+		return errors.New("found a user with the same email. Please use a different email address")
 	}
 
-	err = db.InsertUser(username, password)
+	err = db.InsertUser(email, password)
 	return err
 }

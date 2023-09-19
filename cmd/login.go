@@ -17,7 +17,7 @@ var loginCmd = &cobra.Command{
 		if err != nil {
 			cmd.Println("Error logging in. " + err.Error())
 		} else {
-			cmd.Println(fmt.Printf("Successfully logged in as %s", user.Name))
+			cmd.Println(fmt.Printf("Successfully logged in as %s", user.Email))
 		}
 	},
 }
