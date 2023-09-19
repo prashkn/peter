@@ -10,3 +10,4 @@ Peter is a password manager that stores and hashes your passwords
 ### Future Implementations
 
 - Generate passwords command: generates a password for a website, and copy the password to users' clipboard
+- Hashing methods: allow users to choose what
