@@ -1,6 +1,10 @@
 package entities
 
-import "go.mongodb.org/mongo-driver/bson/primitive"
+import (
+	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
 
 type User struct {
 	ID                 primitive.ObjectID  `bson:"_id"`
@@ -20,5 +24,6 @@ type Password struct {
 }
 
 type Session struct {
-	User User
+	User           User
+	ExpirationTime time.Time
 }
