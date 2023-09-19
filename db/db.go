@@ -20,7 +20,7 @@ func ConnectToDB() *mongo.Client {
 	return client
 }
 
-func DisconnectToDB(m *mongo.Client) {
+func DisconnectFromDB(m *mongo.Client) {
 	if err := m.Disconnect(context.TODO()); err != nil {
 		panic(err)
 	}
